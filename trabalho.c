@@ -4,7 +4,7 @@
 
 struct info
 {
-    char data[10];
+    char data[11];
     float tempmedia;
     float precipi;
     float umid;
@@ -17,11 +17,12 @@ void exibirMenu() {
     printf("2. Gerar relatorios mensais\n");
     printf("3. Gerar relatorios anuais\n");
     printf("4. Detectar comportamentos fora do padrao\n");
+    printf("5. Sair\n");
     printf("==========================\n");
     printf("Escolha uma opcao: ");
 }
 
-struct info* registrardados(struct info *info_clima, int *quantidade){
+struct info* registrardados(struct info *info_clima, int *quantidade, FILE *dados_c){
     struct info *locar = realloc(info_clima, (*quantidade + 1) *sizeof(struct info));
     if (locar == NULL)
     {
@@ -30,11 +31,11 @@ struct info* registrardados(struct info *info_clima, int *quantidade){
     }
     info_clima = locar;
     printf("Data(dd/mm/aaaa): ");
-    fgets(info_clima[*quantidade].data, 10, stdin);
+    fgets(info_clima[*quantidade].data, 11, stdin);
     printf("Temperatura media: ");
     scanf("%f", &info_clima[*quantidade].tempmedia);
     getchar();
-    printf("Precipatacao: ");
+    printf("Precipitacao: ");
     scanf("%f", &info_clima[*quantidade].precipi);
     getchar();
     printf("Umidade: ");
@@ -43,6 +44,7 @@ struct info* registrardados(struct info *info_clima, int *quantidade){
     printf("Velocidade do vento(km/h): ");
     scanf("%f", &info_clima[*quantidade].vel_vento);
     getchar();
+    fprintf(dados_c, "Data: %s\nTemperatura Media: %.2f°C\nPrecipitação: %.1f mm\nUmidade: %.2f\nVelocidade do vento: %.2f km/h", info_clima[*quantidade].data, info_clima[*quantidade].tempmedia, info_clima[*quantidade].precipi,info_clima[*quantidade].umid, info_clima[*quantidade].vel_vento);
 }
 
 int main(){
@@ -52,7 +54,11 @@ int main(){
     int quantidade=0;
     char resposta[1];
     FILE *dados_c;
-        //ERROR
+    dados_c = fopen("dados_climaticos.txt", "w");
+    if (dados_c == NULL) {
+        printf("Erro ao abrir o arquivo!\n");
+        return 1;
+    }
     printf("Digite o nome do estado: ");
     fgets(loc, MAX+1, stdin);
     
@@ -64,13 +70,21 @@ int main(){
         switch (opcao)
         {
         case 1:
-            info_clima = registrardados(info_clima, &quantidade);
+            info_clima = registrardados(info_clima, &quantidade, dados_c);
             break;
         
+
+
+
+
+        case 5:
+            printf("Encerrando o programa...");
+
         default:
             printf("Opção inválida! Tente novamente.\n");
+            return 0;
         }
 
     }
-    
+    return 0;
 }
