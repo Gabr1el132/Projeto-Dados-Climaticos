@@ -1,0 +1,1 @@
+1.0 Definição de estrutura
