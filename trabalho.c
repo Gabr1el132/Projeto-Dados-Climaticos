@@ -43,7 +43,7 @@ struct info* registrardados(struct info *info_clima, int *quantidade, FILE *dado
     printf("Velocidade do vento(km/h): ");
     scanf("%f", &info_clima[*quantidade].vel_vento);
     getchar();
-    fprintf(dados_c, "Data: %s\nTemperatura Media: %.2f°C\nPrecipitação: %.1f mm\nUmidade: %.2f\nVelocidade do vento: %.2f km/h\n\n",
+    fprintf(dados_c, "Data: %s\nTemperatura Média: %.2f°C\nPrecipitação: %.1f mm\nUmidade: %.2f\nVelocidade do vento: %.2f km/h\n\n",
             info_clima[*quantidade].data, info_clima[*quantidade].tempmedia, info_clima[*quantidade].precipi,
             info_clima[*quantidade].umid, info_clima[*quantidade].vel_vento);
     (*quantidade)++;
@@ -59,7 +59,7 @@ void gerarrelatoriosmensais(struct info *info_clima, int *quantidade, FILE *rela
     int dias_no_mes = 0;
     char mes_atual[3] = "";
     char ano_atual[5] = "";
-    printf("Gerando relatório mensal...\n");
+    printf("Gerando relatorio mensal...\n");
     fprintf(relatorios_mensais, "Relatório Mensal de Dados Climáticos\n\n");
     for (int i = 0; i < *quantidade; i++) {
         char mes[3], ano[5];
@@ -93,7 +93,7 @@ void gerarrelatoriosmensais(struct info *info_clima, int *quantidade, FILE *rela
         fprintf(relatorios_mensais, "Umidade Média: %.2f%%\n", soma_umid / dias_no_mes);
         fprintf(relatorios_mensais, "Velocidade Média do Vento: %.2f km/h\n\n", soma_vento / dias_no_mes);
     }
-    printf("Relatório mensal gerado com sucesso e salvo em 'relatorios_mensais.txt'.\n");
+    printf("Relatorio mensal gerado com sucesso e salvo em 'relatorios_mensais.txt'.\n");
 }
 
 void gerarrelatoriosanuais(struct info *info_clima, int *quantidade, FILE *relatorios_anuais) {
@@ -107,8 +107,8 @@ void gerarrelatoriosanuais(struct info *info_clima, int *quantidade, FILE *relat
     float variacao_temp = 0, variacao_precip = 0, variacao_umid = 0;
     int anos_contados = 0;
 
-    printf("Gerando relatório anual...\n");
-    fprintf(relatorios_anuais, "Relatório Anual de Dados Climáticos\n\n");
+    printf("Gerando relatorio anual...\n");
+    fprintf(relatorios_anuais, "Relatorio Anual de Dados Climáticos\n\n");
     for (int i = 0; i < *quantidade; i++) {
         char ano[5];
         strncpy(ano, info_clima[i].data + 6, 4);
@@ -158,7 +158,7 @@ void gerarrelatoriosanuais(struct info *info_clima, int *quantidade, FILE *relat
         fprintf(relatorios_anuais, "Variação Média da Precipitação: %.2f mm/ano\n", variacao_precip / (anos_contados - 1));
         fprintf(relatorios_anuais, "Variação Média da Umidade: %.2f%%/ano\n\n", variacao_umid / (anos_contados - 1));
     }
-    printf("Relatório anual gerado com sucesso e salvo em 'relatorios_anuais.txt'.\n");
+    printf("relatorio anual gerado com sucesso e salvo em 'relatorios_anuais.txt'.\n");
 }
 
 int main() {
@@ -212,7 +212,7 @@ int main() {
                 free(info_clima);
                 return 0;
             default:
-                printf("Opção inválida! Tente novamente.\n");
+                printf("Opcao invalida! Tente novamente.\n");
         }
     }
 }
